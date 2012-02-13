@@ -1,0 +1,19 @@
+#!/recovery/sbin/sh
+
+#/recovery/sbin/mount -orw,remount /
+if [ ! -f "/cache/.stock_recovery" ]
+then
+  # move the old adbd out of the way so it can be rewritten
+  /recovery/sbin/mv /sbin/adbd /sbin/adbd.old
+  # copy clockwork recovery ramdisk into place
+  /recovery/sbin/cp -R /recovery/* /
+  # kill the old adbd
+  killall adbd
+  # adbd will auto restart with the replaced version.
+  # this "recovery" script will exit,
+  # and CWR will autorestart, with the replaced binary.
+else
+  /recovery/sbin/rm /cache/.stock_recovery
+  exec recovery.bin
+fi
+
