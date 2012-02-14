@@ -2,7 +2,8 @@
 
 #Sets variables for xda-dev base
 export BASEDIR=`readlink -f $PWD`
-export KERNELDIR=$BASEDIR/kernels/el29
+export VARIANT=stock
+export KERNELDIR=$BASEDIR/kernels/$VARIANT
 export INITRAMFS_SOURCE=$BASEDIR/initramfs/initramfsroot
 export DEFCONFIG=xda-dev
 export CWMSOURCE=$BASEDIR/CWM-kernel
@@ -13,7 +14,8 @@ export JOBS=`grep 'processor' /proc/cpuinfo | wc -l`
 #With the defconfig, you don't need to type the trailing "_defconfig" as it will be added automatically
 #i.e. For the default options you could run "./build.sh el29 initramfsroot xda-dev 2009q3-68"
 if [ "${1}" != "" ];then
-  export KERNELDIR=$BASEDIR/kernels/${1}
+  export VARIANT=${1}
+  export KERNELDIR=$BASEDIR/kernels/$VARIANT
 fi
 
 if [ "${2}" != "" ];then
@@ -75,4 +77,4 @@ make -j$JOBS zImage CONFIG_INITRAMFS_SOURCE="$INITRAMFS_TMP" || exit 1
 echo creating CWM flashable zip
 cp $KERNELDIR/arch/arm/boot/zImage  $KERNELDIR/CWM-kernel/
 cd $KERNELDIR/CWM-kernel/
-zip -r -9 $BASEDIR/$DEFCONFIG-kernel-`date +%Y.%m.%e-%H.%M`.zip .
+zip -r -9 $BASEDIR/$VARIANT-$DEFCONFIG-kernel-`date +%Y.%m.%e-%H.%M`.zip .
