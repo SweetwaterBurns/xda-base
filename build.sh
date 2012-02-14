@@ -48,6 +48,12 @@ rm -rf $INITRAMFS_TMP
 mkdir $INITRAMFS_TMP
 rm -rf $INITRAMFS_TMP
 cp -ax $INITRAMFS_SOURCE $INITRAMFS_TMP
+
+if [ ! -f $INITRAMFS_TMP/lib/modules ];
+then
+  mkdir -p $INITRAMFS_TMP/lib/modules 
+fi
+
 find $INITRAMFS_TMP -name .git -exec rm -rf {} \;
 rm -rf $INITRAMFS_TMP/.hg
 rm -rf $KERNELDIR/CWM-kernel
