@@ -2,9 +2,9 @@
 
 #Sets variables for xda-dev base
 export BASEDIR=`readlink -f $PWD`
-export VARIANT=stock
+export VARIANT=FF18
 export KERNELDIR=$BASEDIR/kernels/$VARIANT
-export INITRAMFS_SOURCE=$BASEDIR/initramfs/initramfsroot
+export INITRAMFS_SOURCE=$BASEDIR/initramfs/agat63
 export DEFCONFIG=xda-dev
 export CWMSOURCE=$BASEDIR/CWM-kernel
 export TOOLCHAIN=2009q3-68
