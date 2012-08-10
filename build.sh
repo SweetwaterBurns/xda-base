@@ -7,7 +7,7 @@ export KERNELDIR=$BASEDIR/kernels/$VARIANT
 export INITRAMFS_SOURCE=$BASEDIR/initramfs/agat63
 export DEFCONFIG=xda-dev
 export CWMSOURCE=$BASEDIR/CWM-kernel
-export TOOLCHAIN=arm-eabi-4.4.3
+export TOOLCHAIN=arm-2012.03
 export JOBS=`grep 'processor' /proc/cpuinfo | wc -l`
 
 #Command line options that allow overriding defaults, if desired.
@@ -36,6 +36,7 @@ export INITRAMFS_TMP="$BASEDIR/temp/initramfs"
 export CONFIG_DEFAULT_HOSTNAME=xda-dev
 export ARCH=arm
 export CROSS_COMPILE=$BASEDIR/toolchain/$TOOLCHAIN/bin/arm-eabi-
+export CROSS_COMPILE=$BASEDIR/toolchain/$TOOLCHAIN/bin/arm-none-eabi-
 export USE_SEC_FIPS_MODE=true
 
 if [ ! -f $KERNELDIR/.config ];
@@ -61,6 +62,7 @@ then
 fi
 
 find $INITRAMFS_TMP -name .git -exec rm -rf {} \;
+find $INITRAMFS_TMP -name .empty -exec rm -rf {} \;
 rm -rf $INITRAMFS_TMP/.hg
 rm -rf $BASEDIR/temp/CWM-kernel
 cp -ax $CWMSOURCE $BASEDIR/temp/CWM-kernel
