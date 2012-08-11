@@ -7,8 +7,9 @@ export KERNELDIR=$BASEDIR/kernels/$VARIANT
 export INITRAMFS_SOURCE=$BASEDIR/initramfs/agat63
 export DEFCONFIG=xda-dev
 export CWMSOURCE=$BASEDIR/CWM-kernel
+#export TOOLCHAIN=arm-eabi-4.4.3
 export TOOLCHAIN=arm-2012.03
-export JOBS=`grep 'processor' /proc/cpuinfo | wc -l`
+export JOBS=$(expr 1 + `grep 'processor' /proc/cpuinfo | wc -l`)
 
 #Command line options that allow overriding defaults, if desired.
 #With the defconfig, you don't need to type the trailing "_defconfig" as it will be added automatically
@@ -35,7 +36,7 @@ export INITRAMFS_TMP="$BASEDIR/temp/initramfs"
 
 export CONFIG_DEFAULT_HOSTNAME=xda-dev
 export ARCH=arm
-export CROSS_COMPILE=$BASEDIR/toolchain/$TOOLCHAIN/bin/arm-eabi-
+#export CROSS_COMPILE=$BASEDIR/toolchain/$TOOLCHAIN/bin/arm-eabi-
 export CROSS_COMPILE=$BASEDIR/toolchain/$TOOLCHAIN/bin/arm-none-eabi-
 export USE_SEC_FIPS_MODE=true
 
@@ -71,7 +72,7 @@ cp -ax $CWMSOURCE $BASEDIR/temp/CWM-kernel
 echo compiling modules...
 cd $KERNELDIR/
 make -j$JOBS clean || exit 1
-make -j$JOBS || exit 1
+make -j$JOBS modules || exit 1
 
 #Find all compiled modules and copy them for the final build
 find -name '*.ko' -exec cp -av {} $INITRAMFS_TMP/lib/modules/ \;
