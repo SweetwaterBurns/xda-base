@@ -1022,8 +1022,3 @@ service bugreport /system/bin/bugmailer.sh -v
 	oneshot
 	keycodes 114 115 116
 
-service postinit /sbin/ext/post-init.sh
-	class core
-	user root
-	oneshot
-

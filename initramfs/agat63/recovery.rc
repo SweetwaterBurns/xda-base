@@ -30,10 +30,9 @@ on fs
     exec check_encryption_status /dev/block/mmcblk0p10
 
     # verfiy filesystem (UMS)
-	exec sformat /dev/block/mmcblk0p11 vfat
+    exec sformat /dev/block/mmcblk0p11 vfat
 
 on boot
-
     ifup lo
     hostname localhost
     domainname localdomain
