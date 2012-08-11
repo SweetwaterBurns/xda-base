@@ -2599,7 +2599,7 @@ int sdhci_add_host(struct sdhci_host *host)
 	else
 		mmc->max_discard_to = (1 << 27) / host->timeout_clk;
 
-	mmc->caps |= MMC_CAP_SDIO_IRQ | MMC_CAP_ERASE;
+	mmc->caps |= MMC_CAP_SDIO_IRQ;
 
 	if (host->quirks & SDHCI_QUIRK_MULTIBLOCK_READ_ACMD12)
 		host->flags |= SDHCI_AUTO_CMD12;
